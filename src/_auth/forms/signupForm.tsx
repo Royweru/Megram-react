@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import { createUserAccount } from "@/lib/appwrite/api";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 export const SignupForm = () => {
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -29,9 +30,18 @@ export const SignupForm = () => {
   });
 
   const onSubmit = async (vals: z.infer<typeof signUpSchema>) => {
-    const newUser = await createUserAccount(vals);
+    console.log(vals);
+    const newUser = await createUserAccount({
+      email:vals.email,
+      password:vals.password,
+      name:vals.name,
+      username:vals.username
+    });
+    if(!newUser){
+      return toast("Sign up failed please try again")
+    }
     form.reset();
-    console.log(newUser);
+    
   };
 
   const isLoading = form.formState.isLoading;

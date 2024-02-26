@@ -4,6 +4,7 @@ import { SignupForm } from "./_auth/forms/signupForm"
 import { SigninForm } from "./_auth/forms/signinForm"
 import RootLayout from "./_root/root-layout"
 import { Home } from "./_root/pages"
+import { Toaster } from "@/components/ui/sonner"
 {
   /* The following line can be included in your src/index.js or App.js file */
 }
@@ -13,7 +14,7 @@ function App() {
  
 
   return (
-    <>
+    <main className=" flex h-screen">
      <Routes>
       <Route element={<AuthLayout />} >
           <Route path="/sign-up" element={<SignupForm/>}/>
@@ -23,7 +24,8 @@ function App() {
          <Route index element={<Home/>}/>
       </Route>
      </Routes>
-    </>
+     <Toaster />
+    </main>
   )
 }
 
