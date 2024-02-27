@@ -13,12 +13,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
-import { createUserAccount } from "@/lib/appwrite/api";
+import { Link, useNavigate } from "react-router-dom";
+import { createUserAccount, signInAccount } from "@/lib/appwrite/api";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useCreateUserAccount } from "@/lib/react-query/queriesAndMutations";
+import { useUserContext } from "@/context/AuthContext";
 export const SignupForm = () => {
+  const {checkAuthUser,isLoading:isUserLoading} = useUserContext()
+  const {mutateAsync,isLoading} = useCreateUserAccount()
+
+  const navigate = useNavigate()
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -28,9 +34,11 @@ export const SignupForm = () => {
       username: "",
     },
   });
-
+ const {mutateAsync:createUserAccount,isPending:isCreatingAccount} = useCreateUserAccount()
   const onSubmit = async (vals: z.infer<typeof signUpSchema>) => {
     console.log(vals);
+
+    
     const newUser = await createUserAccount({
       email:vals.email,
       password:vals.password,
@@ -40,11 +48,27 @@ export const SignupForm = () => {
     if(!newUser){
       return toast("Sign up failed please try again")
     }
-    form.reset();
+
+    const session = await signInAccount({
+      email:vals.email,
+      password:vals.password
+    })
+
+    if(!session){
+      return toast("Sign up failed please try again")
+    }
+   const  isLoggedIn = await checkAuthUser()
+
+   if(isLoggedIn){
+    form.reset(),
+    navigate("/")
+   }else{
+    return toast("Sign up failed")
+   }
     
   };
 
-  const isLoading = form.formState.isLoading;
+
 
   return (
     <div className=" w-full flex flex-col justify-evenly p-12 gap-y-6">
