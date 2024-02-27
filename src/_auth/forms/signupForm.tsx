@@ -46,8 +46,9 @@ export const SignupForm = () => {
       username:vals.username
     });
     if(!newUser){
-      return toast("Sign up failed please try again")
+      return toast.error("Sign up failed",{style:{backgroundColor:"red"}})
     }
+
 
     const session = await signInAccount({
       email:vals.email,
@@ -55,7 +56,7 @@ export const SignupForm = () => {
     })
 
     if(!session){
-      return toast("Sign up failed please try again")
+      return toast.error("Sign up failed please try again",{style:{backgroundColor:"red"}})
     }
    const  isLoggedIn = await checkAuthUser()
 
@@ -63,7 +64,7 @@ export const SignupForm = () => {
     form.reset(),
     navigate("/")
    }else{
-    return toast("Sign up failed")
+    return toast.error("Sign up failed",{style:{backgroundColor:"red"}})
    }
     
   };
