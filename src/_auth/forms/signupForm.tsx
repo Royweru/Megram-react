@@ -45,10 +45,12 @@ export const SignupForm = () => {
       name:vals.name,
       username:vals.username
     });
+   
+  
     if(!newUser){
       return toast.error("Failed to create new user!",{style:{backgroundColor:"red"}})
     }
-
+   
     return toast.success("User was created Successfully!")
   //   const session = await signInAccount({
   //     email:vals.email,

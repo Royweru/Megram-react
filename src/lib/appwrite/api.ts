@@ -6,13 +6,13 @@ export async function createUserAccount(user:INewUser) {
     try {
         const newAccount = await account.create(
             ID.unique(),
-            user.name,
-            user.email,
-            user.password
+          user.email,
+          user.password,
+          user.name
         )
 
         if(!newAccount){
-            throw new Error("No account")
+            throw new Error("No account was created!")
         }
         const avatarUrl = avatars.getInitials(user.name)
 
@@ -24,7 +24,8 @@ export async function createUserAccount(user:INewUser) {
             imageUrl:avatarUrl
         })
         console.log(newUser)
-        return newAccount
+       
+        return newUser
     } catch (error) {
         console.error(error)
         return error
