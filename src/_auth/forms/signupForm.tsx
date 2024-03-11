@@ -46,33 +46,33 @@ export const SignupForm = () => {
       username:vals.username
     });
     if(!newUser){
-      return toast.error("Sign up failed",{style:{backgroundColor:"red"}})
+      return toast.error("Failed to create new user!",{style:{backgroundColor:"red"}})
     }
 
+    return toast.success("User was created Successfully!")
+  //   const session = await signInAccount({
+  //     email:vals.email,
+  //     password:vals.password
+  //   })
 
-    const session = await signInAccount({
-      email:vals.email,
-      password:vals.password
-    })
+  //   if(!session){
+  //     return toast.error("Sign up failed please try again",{style:{backgroundColor:"red"}})
+  //   }
+  //  const  isLoggedIn = await checkAuthUser()
 
-    if(!session){
-      return toast.error("Sign up failed please try again",{style:{backgroundColor:"red"}})
-    }
-   const  isLoggedIn = await checkAuthUser()
-
-   if(isLoggedIn){
-    form.reset(),
-    navigate("/")
-   }else{
-    return toast.error("Sign up failed",{style:{backgroundColor:"red"}})
-   }
+  //  if(isLoggedIn){
+  //   form.reset(),
+  //   navigate("/")
+  //  }else{
+  //   return toast.error("Sign up failed",{style:{backgroundColor:"red"}})
+  //  }
     
   };
 
 
 
   return (
-    <div className=" w-full flex flex-col justify-evenly p-12 gap-y-6">
+    <div className=" w-full flex flex-col justify-evenly p-12 gap-y-4 py-4">
       <div className=" w-full relative flex flex-col items-center justify-center">
         <img
           src="/assets/images/logo.svg"
