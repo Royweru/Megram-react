@@ -153,10 +153,10 @@ export const SignupForm = () => {
 
             <Button
               className={cn("shad-button_primary w-full")}
-              disabled={isLoading}
+              disabled={isUserLoading}
               type="submit"
             >
-              {isLoading && <Loader2 className=" animate-spin w-5 h-5 ml-2" />}
+              {isUserLoading && <Loader2 className=" animate-spin w-5 h-5 ml-2" />}
               Sign Up
             </Button>
 

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserAccount, signInAccount } from "@/lib/appwrite/api";
+
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -45,7 +45,7 @@ export const SigninForm = () => {
     });
 
     if (!session) {
-      return toast.error("Sign up failed please try again", {
+      return toast.error("Sign In failed please try again!", {
         style: { backgroundColor: "red" },
       });
     }
