@@ -1,5 +1,5 @@
 import React from "react";
-import { signInAccount } from "../appwrite/api";
+import { signInAccount, signOutAccount } from "../appwrite/api";
 import {
     useQuery,
     useMutation,
@@ -21,5 +21,10 @@ export const useSignInAccount=()=>{
             email:string,
             password:string
         })=>signInAccount(user)
+    })
+}
+export const useSignOutAccount=()=>{
+    return useMutation({
+        mutationFn:signOutAccount
     })
 }
