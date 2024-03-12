@@ -8,12 +8,12 @@ import { QueryProvider } from "./lib/react-query/query-provider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <QueryProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <QueryProvider>
         <AuthProvider>
           <App />
         </AuthProvider>
-      </BrowserRouter>
-    </QueryProvider>
+      </QueryProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

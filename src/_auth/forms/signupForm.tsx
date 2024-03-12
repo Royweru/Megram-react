@@ -14,15 +14,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserAccount, signInAccount } from "@/lib/appwrite/api";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { useCreateUserAccount } from "@/lib/react-query/queriesAndMutations";
+import { useCreateUserAccount, useSignInAccount } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 export const SignupForm = () => {
   const {checkAuthUser,isLoading:isUserLoading} = useUserContext()
-  const {mutateAsync,isLoading} = useCreateUserAccount()
+  const {mutateAsync:createUserAccount,isPending:isCreatingAccount} = useCreateUserAccount()
+  const {mutateAsync:signInAccount,isPending:isSigningIn} = useSignInAccount()
 
   const navigate = useNavigate()
   const form = useForm<z.infer<typeof signUpSchema>>({
@@ -34,7 +34,7 @@ export const SignupForm = () => {
       username: "",
     },
   });
- const {mutateAsync:createUserAccount,isPending:isCreatingAccount} = useCreateUserAccount()
+
   const onSubmit = async (vals: z.infer<typeof signUpSchema>) => {
     console.log(vals);
 
@@ -51,23 +51,23 @@ export const SignupForm = () => {
       return toast.error("Failed to create new user!",{style:{backgroundColor:"red"}})
     }
    
-    return toast.success("User was created Successfully!")
-  //   const session = await signInAccount({
-  //     email:vals.email,
-  //     password:vals.password
-  //   })
+   
+    const session = await signInAccount({
+      email:vals.email,
+      password:vals.password
+    })
 
-  //   if(!session){
-  //     return toast.error("Sign up failed please try again",{style:{backgroundColor:"red"}})
-  //   }
-  //  const  isLoggedIn = await checkAuthUser()
+    if(!session){
+      return toast.error("Sign in failed please try again",{style:{backgroundColor:"red"}})
+    }
+   const  isLoggedIn = await checkAuthUser()
 
-  //  if(isLoggedIn){
-  //   form.reset(),
-  //   navigate("/")
-  //  }else{
-  //   return toast.error("Sign up failed",{style:{backgroundColor:"red"}})
-  //  }
+   if(isLoggedIn){
+    form.reset(),
+    navigate("/")
+   }else{
+    return toast.error("Sign up failed",{style:{backgroundColor:"red"}})
+   }
     
   };
 
