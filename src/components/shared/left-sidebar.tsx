@@ -1,6 +1,6 @@
 import { useUserContext } from '@/context/AuthContext'
 import { useSignOutAccount } from '@/lib/react-query/queriesAndMutations'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import { Link, NavLink, useNavigate,useLocation } from 'react-router-dom'
 import { sidebarLinks } from '@/constants'
@@ -9,11 +9,14 @@ export const LeftSideBar = () => {
 
     const {mutate:signOut,isSuccess} = useSignOutAccount()
     const navigate = useNavigate()
-    const pathName = useLocation()
+    const {pathname} = useLocation()
     const {user} = useUserContext()
+    
     useEffect(()=>{
         if(isSuccess)navigate(0)
     },[isSuccess])
+
+
   return (
     <nav className='leftsidebar'>
          <div className=' flex flex-col gap-11'>
@@ -35,7 +38,7 @@ export const LeftSideBar = () => {
             </Link>
             <ul className='flex flex-col gap-6'>
                {sidebarLinks.map((link:INavLink)=>{
-                const isActive = pathName===link.route
+                const isActive = pathname===link.route
                 return(
                     <li key={link.label}
                      className={`leftsidebar-link ${isActive && 'bg-primary-500'}`}

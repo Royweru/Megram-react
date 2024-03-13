@@ -5,12 +5,12 @@ import { bottombarLinks } from '@/constants'
 import { INavLink } from '@/types'
 
 export const BottomBar = () => {
-  const pathName =useLocation()
+  const {pathname} =useLocation()
 
   return (
-    <section>
+    <section className=' md:hidden'>
       {bottombarLinks.map((link:INavLink)=>{
-      const isActive = pathName===link.route
+      const isActive = pathname===link.route
       return(
           <li key={link.label}
            className={`leftsidebar-link ${isActive && 'bg-primary-500 rounded-[10px]'} 
