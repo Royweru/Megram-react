@@ -16,3 +16,11 @@ export const signInSchema = z.object({
     .string()
     .min(8, { message: "Must at least have a minimum 8 characters" }),
 });
+
+
+export const postSchema= z.object({
+  caption:z.string().min(5).max(2200),
+  file:z.custom<File[]>(),
+  location:z.string().min(2).max(100),
+  tags:z.string()
+})
