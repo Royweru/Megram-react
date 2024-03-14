@@ -109,7 +109,7 @@ export async function createPost(post: INewPost) {
         await deleteFile(uploadedFile.$id);
         throw Error;
       }
-  
+   
       // Convert tags into array
       const tags = post.tags?.replace(/ /g, "").split(",") || [];
   
