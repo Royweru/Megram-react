@@ -1,5 +1,5 @@
-import React from "react";
-import { signInAccount, signOutAccount } from "../appwrite/api";
+
+import { getRecentPosts, signInAccount, signOutAccount } from "../appwrite/api";
 import { QUERY_KEYS } from "./queryKeys";
 import {
     useQuery,
@@ -42,3 +42,11 @@ export const useCreatePost = () => {
       },
     });
   };
+
+
+  export const useGetRecentPosts = ()=>{
+    return useQuery({
+        queryKey:[QUERY_KEYS.GET_RECENT_POSTS],
+        queryFn:getRecentPosts,
+    })
+  }

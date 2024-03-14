@@ -1,4 +1,4 @@
-import React from "react";
+
 import {
   Form,
   FormControl,
@@ -48,7 +48,7 @@ export const PostForm = ({post}:PostFormProps) => {
         userId:user.id,
      })
      if(!newPost){
-        toast.error("Please try again",{style:{"background":"red"}})
+        toast.error("Post not created, please try again",{style:{"background":"red"}})
      }
      navigate("/")
   };
@@ -133,6 +133,7 @@ export const PostForm = ({post}:PostFormProps) => {
           <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap"
+            disabled={isLoadingCreate}
           >
             SUBMIT
           </Button>
