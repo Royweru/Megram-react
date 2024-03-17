@@ -13,3 +13,6 @@ export const formatDateDistance = (dateString:string):string => {
   return formatDistanceToNow(date, { addSuffix: true });
 };
 
+export const checkIsLiked = (likeList: string[], userId: string) => {
+  return likeList.includes(userId);
+};

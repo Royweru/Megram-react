@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { formatDateDistance } from "@/lib/utils";
 import { useUserContext } from "@/context/AuthContext";
 
+import { PostStats } from "./post-stats";
 interface PostCardProps {
   post: Models.Document;
 }
@@ -64,6 +65,7 @@ export const PostCard = ({ post }: PostCardProps) => {
           alt="post image"
         />
       </Link>
+      <PostStats post={post} userId={user.id} />
     </div>
   );
 };
